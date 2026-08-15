@@ -156,6 +156,7 @@
         <button class="chip" data-val="Braço 3">Braço 3</button>
         <button class="chip" data-val="Braço 4">Braço 4</button>
         <button class="chip" data-val="Braço 5">Braço 5</button>
+        <button class="chip" data-val="Mezanino">Mezanino</button>
       </div>
       <label class="field-label" style="margin-top:14px;">Equipe</label>
       <div class="chip-grid cols-3" id="equipeChips">
@@ -578,7 +579,8 @@ document.getElementById('btnEnviar').addEventListener('click', function(){
     return;
   }
   var msg=buildMessage();
-  var url='https://wa.me/?text='+encodeURIComponent(msg);
+  var MONITOR_PHONE='5512997652610';
+  var url='https://wa.me/'+MONITOR_PHONE+'?text='+encodeURIComponent(msg);
   window.open(url,'_blank');
   clearDraft();
   showToast('📲 Checklist pronto para envio');
