@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>SOLEIRA ZERO – Checklist</title>
+<style>
+  :root{
+    --vw-blue-dark:#001e50;
+    --vw-blue:#0040c1;
+    --gray:#1a1a2e;
+    --green:#00c853;
+    --yellow:#ffd600;
+    --red:#d50000;
+    --bg:#f2f4f8;
+    --card-bg:#ffffff;
+    --text:#1a1a2e;
+    --text-dim:#5b6472;
+    --border-radius:10px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+  html,body{height:100%;}
+  body{
+    font-family:'Segoe UI',system-ui,-apple-system,Roboto,Arial,sans-serif;
+    background:var(--bg);color:var(--text);
+    padding-bottom:110px;-webkit-font-smoothing:antialiased;
+  }
+  button{font-family:inherit;cursor:pointer;border:none;}
+  input,select,textarea{font-family:inherit;}
+
+  header.app-header{
+    background:linear-gradient(135deg,var(--vw-blue-dark),var(--red));
+    color:#fff;padding:18px 16px 22px;border-radius:0 0 20px 20px;
+    box-shadow:0 4px 14px rgba(0,30,80,.25);position:sticky;top:0;z-index:40;
+  }
+  .header-title{font-size:20px;font-weight:800;letter-spacing:.3px;display:flex;align-items:center;gap:8px;}
+  .header-sub{font-size:12px;opacity:.9;margin-top:4px;line-height:1.4;}
+  .header-orient{font-size:11.5px;opacity:.85;margin-top:8px;line-height:1.5;background:rgba(255,255,255,.14);padding:8px 10px;border-radius:10px;}
+
+  main{padding:16px 14px 20px;max-width:640px;margin:0 auto;}
+
+  .section-block{margin-bottom:22px;}
+  .section-heading{
+    font-size:13px;font-weight:800;color:var(--vw-blue-dark);
+    text-transform:uppercase;letter-spacing:.4px;margin-bottom:10px;
+    display:flex;align-items:center;gap:6px;
+  }
+
+  .card{background:var(--card-bg);border-radius:var(--border-radius);padding:16px;box-shadow:0 2px 8px rgba(0,0,0,.06);margin-bottom:12px;}
+
+  .field-label{font-size:12.5px;font-weight:700;color:var(--text-dim);margin-bottom:6px;display:block;}
+  input.input, textarea.input{
+    width:100%;padding:12px;border-radius:10px;border:2px solid #dfe4ec;
+    background:#fff;color:var(--text);font-size:14px;margin-bottom:14px;
+  }
+  input.input:last-child, textarea.input:last-child{margin-bottom:0;}
+  textarea.input{min-height:80px;resize:vertical;}
+
+  .q-title{font-size:14.5px;font-weight:700;margin-bottom:12px;line-height:1.4;}
+  .q-num{color:var(--vw-blue);margin-right:4px;}
+
+  .chip-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:4px;}
+  .chip-grid.cols-3{grid-template-columns:1fr 1fr 1fr;}
+  .chip{
+    padding:13px 8px;border-radius:12px;border:2px solid #dfe4ec;
+    background:#fff;font-weight:700;font-size:13px;text-align:center;color:var(--text);
+  }
+  .chip.selected{background:var(--vw-blue);border-color:var(--vw-blue);color:#fff;}
+  .chip.wide{grid-column:1/-1;text-align:left;padding:14px;}
+
+  .yn-row{display:flex;gap:10px;margin-bottom:4px;}
+  .btn-yesno{flex:1;padding:15px 10px;border-radius:12px;font-weight:800;font-size:14.5px;border:2px solid #dfe4ec;background:#fff;color:var(--text);}
+  .btn-yesno.na{font-size:12px;}
+  .btn-yesno.selected-yes{background:var(--green);border-color:var(--green);color:#fff;}
+  .btn-yesno.selected-no{background:#8a94a3;border-color:#8a94a3;color:#fff;}
+  .btn-yesno.selected-na{background:var(--yellow);border-color:var(--yellow);color:#5c4b00;}
+
+  .sub-q{margin-top:14px;padding-top:14px;border-top:1px dashed #dfe4ec;display:none;}
+  .sub-q.visible{display:block;}
+  .sub-q .q-title{font-size:13px;}
+
+  .outro-input{display:none;margin-top:8px;}
+  .outro-input.visible{display:block;}
+
+  .level-card{
+    width:100%;text-align:left;padding:14px;margin-bottom:9px;display:block;
+    border-radius:12px;border:2px solid #dfe4ec;background:#fff;
+  }
+  .level-card.selected{border-color:var(--vw-blue);background:#eef4ff;}
+  .level-card .lvl-title{font-size:14px;font-weight:800;}
+  .level-card .lvl-desc{font-size:11.5px;color:var(--text-dim);margin-top:3px;font-weight:400;}
+
+  .class-btn{
+    grid-column:span 2;padding:15px 10px;border-radius:12px;border:2px solid #dfe4ec;
+    background:#fff;font-weight:800;font-size:13.5px;text-align:center;color:var(--text);
+  }
+  .class-btn.selected{border-color:var(--vw-blue);background:var(--vw-blue);color:#fff;}
+
+  .note-box{background:#fff4e5;border:1px solid #ffdca8;border-radius:10px;padding:10px 12px;font-size:11.5px;color:#8a5300;line-height:1.5;margin-top:12px;}
+
+  .final-note{
+    background:var(--card-bg);border-radius:var(--border-radius);padding:16px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);margin-bottom:12px;text-align:center;
+  }
+  .final-note .title{font-weight:800;font-size:15px;color:var(--vw-blue-dark);margin-bottom:6px;}
+  .final-note .phrase{font-size:13px;font-style:italic;color:var(--text-dim);line-height:1.5;margin:8px 0;}
+  .final-note .tagline{font-size:12px;font-weight:700;color:var(--red);margin-top:8px;}
+
+  .bottom-bar{
+    position:fixed;bottom:0;left:0;right:0;background:var(--card-bg);
+    padding:12px 14px calc(12px + env(safe-area-inset-bottom));
+    box-shadow:0 -3px 12px rgba(0,0,0,.08);z-index:50;
+    display:flex;gap:10px;
+  }
+  .btn{display:flex;align-items:center;justify-content:center;gap:6px;padding:14px 16px;border-radius:12px;font-weight:800;font-size:14.5px;width:100%;}
+  .btn-primary{background:var(--green);color:#fff;}
+  .btn-secondary{background:#e7ebf3;color:var(--vw-blue-dark);flex:0 0 auto;width:auto;padding:14px 18px;}
+
+  #toast{
+    position:fixed;bottom:96px;left:50%;transform:translateX(-50%) translateY(20px);
+    background:var(--gray);color:#fff;padding:11px 20px;border-radius:30px;
+    font-size:13px;font-weight:700;opacity:0;pointer-events:none;
+    transition:all .25s ease;z-index:200;box-shadow:0 4px 14px rgba(0,0,0,.25);
+    white-space:nowrap;max-width:90vw;overflow:hidden;text-overflow:ellipsis;
+  }
+  #toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+  .progress-wrap{background:#e2e7ef;border-radius:20px;height:6px;overflow:hidden;margin-bottom:16px;}
+  .progress-bar{height:100%;background:linear-gradient(90deg,var(--vw-blue),var(--red));border-radius:20px;transition:width .25s ease;}
+</style>
+</head>
+<body>
+
+<header class="app-header">
+  <div class="header-title">🔴 SOLEIRA ZERO — Checklist</div>
+  <div class="header-sub">Mapeamento de Risco na Soleira</div>
+  <div class="header-orient">
+    <b>Objetivo:</b> identificar operações com potencial de gerar amassado ou risco na soleira, antes que o problema seja encontrado no final da linha.<br>
+    <b>Orientação:</b> preencha observando a operação real. Não é necessário encontrar um defeito — estamos procurando potenciais pontos de risco.
+  </div>
+</header>
+
+<main>
+  <div class="progress-wrap"><div class="progress-bar" id="progressBar" style="width:0%"></div></div>
+
+  <!-- IDENTIFICAÇÃO -->
+  <div class="section-block">
+    <div class="section-heading">👤 Identificação</div>
+    <div class="card">
+      <label class="field-label">Monitor</label>
+      <input class="input" id="fMonitor" placeholder="Seu nome">
+      <label class="field-label">Braço</label>
+      <div class="chip-grid cols-3" id="bracoChips">
+        <button class="chip" data-val="Braço 1">Braço 1</button>
+        <button class="chip" data-val="Braço 2">Braço 2</button>
+        <button class="chip" data-val="Braço 3">Braço 3</button>
+        <button class="chip" data-val="Braço 4">Braço 4</button>
+        <button class="chip" data-val="Braço 5">Braço 5</button>
+      </div>
+      <label class="field-label" style="margin-top:14px;">Equipe</label>
+      <div class="chip-grid cols-3" id="equipeChips">
+        <button class="chip" data-val="Equipe 1">Equipe 1</button>
+        <button class="chip" data-val="Equipe 2">Equipe 2</button>
+        <button class="chip" data-val="Equipe 3">Equipe 3</button>
+      </div>
+      <label class="field-label" style="margin-top:14px;">Data</label>
+      <input class="input" id="fData" type="date">
+    </div>
+  </div>
+
+  <!-- OPERAÇÃO -->
+  <div class="section-block">
+    <div class="section-heading">🔧 Operação</div>
+    <div class="card">
+      <label class="field-label">Nome da operação</label>
+      <input class="input" id="fNomeOp" placeholder="Ex: Montagem do painel">
+    </div>
+
+    <div class="card">
+      <div class="q-title"><span class="q-num">1️⃣</span>O operador precisa acessar o interior do veículo?</div>
+      <div class="yn-row" id="q1">
+        <button class="btn-yesno" data-val="sim">✅ SIM</button>
+        <button class="btn-yesno" data-val="nao">❌ NÃO</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="q-title"><span class="q-num">2️⃣</span>Existe possibilidade de o operador apoiar-se na soleira?</div>
+      <div class="yn-row" id="q2">
+        <button class="btn-yesno" data-val="sim">✅ SIM</button>
+        <button class="btn-yesno" data-val="nao">❌ NÃO</button>
+      </div>
+      <div class="sub-q" id="q2sub">
+        <div class="q-title">Se SIM, como ocorre o apoio?</div>
+        <div class="chip-grid" id="q2tipo">
+          <button class="chip" data-val="Mão">Mão</button>
+          <button class="chip" data-val="Braço">Braço</button>
+          <button class="chip" data-val="Corpo">Corpo</button>
+          <button class="chip" data-val="Joelho">Joelho</button>
+          <button class="chip wide" data-val="Outro">Outro</button>
+        </div>
+        <input class="input outro-input" id="q2outro" placeholder="Descreva o outro tipo de apoio">
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="q-title"><span class="q-num">3️⃣</span>Existe entrada ou retirada de peça grande pela abertura da porta?</div>
+      <div class="yn-row" id="q3">
+        <button class="btn-yesno" data-val="sim">✅ SIM</button>
+        <button class="btn-yesno" data-val="nao">❌ NÃO</button>
+      </div>
+      <div class="sub-q" id="q3sub">
+        <div class="q-title">Se SIM, qual peça?</div>
+        <div class="chip-grid" id="q3peca">
+          <button class="chip" data-val="Teto">Teto</button>
+          <button class="chip" data-val="Painel">Painel</button>
+          <button class="chip" data-val="Banco">Banco</button>
+          <button class="chip" data-val="Console">Console</button>
+          <button class="chip" data-val="Acabamento">Acabamento</button>
+          <button class="chip" data-val="Outra">Outra</button>
+        </div>
+        <input class="input outro-input" id="q3outro" placeholder="Descreva a outra peça">
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="q-title"><span class="q-num">4️⃣</span>Existe possibilidade de a peça tocar na soleira?</div>
+      <div class="yn-row" id="q4">
+        <button class="btn-yesno" data-val="sim">✅ SIM</button>
+        <button class="btn-yesno" data-val="nao">❌ NÃO</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="q-title"><span class="q-num">5️⃣</span>Existe ferramenta, objeto ou equipamento próximo da soleira?</div>
+      <div class="yn-row" id="q5">
+        <button class="btn-yesno" data-val="sim">✅ SIM</button>
+        <button class="btn-yesno" data-val="nao">❌ NÃO</button>
+      </div>
+      <div class="sub-q" id="q5sub">
+        <div class="q-title">Se SIM, qual? (pode marcar mais de uma)</div>
+        <div class="chip-grid" id="q5tools">
+          <button class="chip" data-val="Apertadeira elétrica">Apertadeira elétrica</button>
+          <button class="chip" data-val="Ferramenta manual">Ferramenta manual</button>
+          <button class="chip" data-val="Caixa com peças">Caixa com peças</button>
+          <button class="chip" data-val="Caixa/embalagem">Caixa/embalagem</button>
+          <button class="chip" data-val="Dispositivo">Dispositivo</button>
+          <button class="chip" data-val="Suporte">Suporte</button>
+          <button class="chip" data-val="Manipulador">Manipulador</button>
+          <button class="chip" data-val="Peça/componente">Peça/componente</button>
+          <button class="chip wide" data-val="Outro">Outro</button>
+        </div>
+        <input class="input outro-input" id="q5outro" placeholder="Descreva o outro item">
+        <div class="note-box">ℹ️ Isso não afirma que o item é a causa de um dano — apenas registra o potencial de contato.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AVALIAÇÃO -->
+  <div class="section-block">
+    <div class="section-heading">⚠️ Avaliação do Potencial</div>
+    <div class="card">
+      <div class="q-title"><span class="q-num">6️⃣</span>Essa operação possui potencial de gerar:</div>
+      <div class="chip-grid" id="q6">
+        <button class="class-btn" data-val="amassado">🔴 AMASSADO</button>
+        <button class="class-btn" data-val="risco">🟠 RISCO</button>
+        <button class="class-btn" data-val="ambos">🔴🟠 AMASSADO + RISCO</button>
+        <button class="class-btn" data-val="sem_potencial">🟢 SEM POTENCIAL</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="q-title"><span class="q-num">7️⃣</span>Qual o nível do potencial?</div>
+      <button class="level-card" data-val="baixo">
+        <div class="lvl-title">🟢 BAIXO</div><div class="lvl-desc">Contato pouco provável.</div>
+      </button>
+      <button class="level-card" data-val="medio">
+        <div class="lvl-title">🟡 MÉDIO</div><div class="lvl-desc">Existe possibilidade de contato dependendo da condição da operação.</div>
+      </button>
+      <button class="level-card" data-val="alto" style="margin-bottom:0;">
+        <div class="lvl-title">🔴 ALTO</div><div class="lvl-desc">Existe uma condição clara ou frequente de contato.</div>
+      </button>
+    </div>
+
+    <div class="card">
+      <div class="q-title"><span class="q-num">8️⃣</span>Observação do monitor</div>
+      <textarea class="input" id="fObs" placeholder="Descreva o que você observou..." style="margin-bottom:0;"></textarea>
+    </div>
+  </div>
+
+  <div class="final-note">
+    <div class="title">SOLEIRA ZERO</div>
+    <div class="phrase">"Nesta operação existe alguma condição que pode gerar risco ou amassado na soleira?"</div>
+    <div style="font-size:11.5px;color:var(--text-dim);">Não precisamos descobrir a causa neste momento — o objetivo é identificar o potencial.</div>
+    <div class="tagline">Prevenir antes de encontrar o defeito.</div>
+  </div>
+</main>
+
+<div class="bottom-bar">
+  <button class="btn btn-secondary" id="btnLimpar">🗑️ Novo</button>
+  <button class="btn btn-primary" id="btnEnviar">📲 Enviar pelo WhatsApp</button>
+</div>
+
+<div id="toast"></div>
+
+<script>
+(function(){
+"use strict";
+
+var DRAFT_KEY = 'soleira_zero_checklist_draft_v1';
+
+var answers = {
+  monitor:'', braco:'', equipe:'', data:'', nomeOp:'',
+  q1:'', q2:'', q2tipo:'', q2outro:'',
+  q3:'', q3peca:'', q3outro:'',
+  q4:'',
+  q5:'', q5tools:[], q5outro:'',
+  q6:'', q7:'', obs:''
+};
+
+/* ---------- TOAST ---------- */
+var toastTimer=null;
+function showToast(msg){
+  var t=document.getElementById('toast');
+  t.textContent=msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(function(){ t.classList.remove('show'); }, 2400);
+}
+
+/* ---------- DRAFT PERSISTENCE ---------- */
+function saveDraft(){
+  try{ localStorage.setItem(DRAFT_KEY, JSON.stringify(answers)); }catch(e){}
+}
+function clearDraft(){
+  try{ localStorage.removeItem(DRAFT_KEY); }catch(e){}
+}
+function loadDraft(){
+  try{
+    var raw=localStorage.getItem(DRAFT_KEY);
+    if(raw){
+      var parsed=JSON.parse(raw);
+      if(parsed && typeof parsed==='object') answers=Object.assign(answers,parsed);
+    }
+  }catch(e){}
+}
+
+/* ---------- HELPERS: yes/no groups ---------- */
+function bindYesNo(groupId, key, extraSelectedClass){
+  var group=document.getElementById(groupId);
+  group.querySelectorAll('.btn-yesno').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      answers[key]=btn.dataset.val;
+      renderYesNo(groupId, key);
+      onAnswerChange();
+    });
+  });
+}
+function renderYesNo(groupId, key){
+  var group=document.getElementById(groupId);
+  group.querySelectorAll('.btn-yesno').forEach(function(btn){
+    btn.classList.remove('selected-yes','selected-no','selected-na');
+    if(btn.dataset.val===answers[key]){
+      if(btn.dataset.val==='sim') btn.classList.add('selected-yes');
+      else if(btn.dataset.val==='nao') btn.classList.add('selected-no');
+      else btn.classList.add('selected-na');
+    }
+  });
+}
+
+function bindChipSingle(groupId, key, outroInputId){
+  var group=document.getElementById(groupId);
+  group.querySelectorAll('.chip').forEach(function(chip){
+    chip.addEventListener('click', function(){
+      answers[key]=chip.dataset.val;
+      renderChipSingle(groupId, key);
+      if(outroInputId){
+        var isOutro = (chip.dataset.val==='Outro' || chip.dataset.val==='Outra');
+        document.getElementById(outroInputId).classList.toggle('visible', isOutro);
+      }
+      onAnswerChange();
+    });
+  });
+}
+function renderChipSingle(groupId, key){
+  var group=document.getElementById(groupId);
+  group.querySelectorAll('.chip').forEach(function(chip){
+    chip.classList.toggle('selected', chip.dataset.val===answers[key]);
+  });
+}
+
+function bindChipMulti(groupId, key, outroInputId){
+  var group=document.getElementById(groupId);
+  group.querySelectorAll('.chip').forEach(function(chip){
+    chip.addEventListener('click', function(){
+      var arr=answers[key]||[];
+      var v=chip.dataset.val;
+      var idx=arr.indexOf(v);
+      if(idx>-1) arr.splice(idx,1); else arr.push(v);
+      answers[key]=arr;
+      renderChipMulti(groupId, key);
+      if(outroInputId){
+        document.getElementById(outroInputId).classList.toggle('visible', arr.indexOf('Outro')>-1);
+      }
+      onAnswerChange();
+    });
+  });
+}
+function renderChipMulti(groupId, key){
+  var group=document.getElementById(groupId);
+  var arr=answers[key]||[];
+  group.querySelectorAll('.chip').forEach(function(chip){
+    chip.classList.toggle('selected', arr.indexOf(chip.dataset.val)>-1);
+  });
+}
+
+/* ---------- BRAÇO e EQUIPE (seleção independente, cada uma única dentro do próprio grupo) ---------- */
+bindChipSingle('bracoChips','braco');
+bindChipSingle('equipeChips','equipe');
+
+/* ---------- Q1 ---------- */
+bindYesNo('q1','q1');
+
+/* ---------- Q2 (+ N/A + sub) ---------- */
+bindYesNo('q2','q2');
+document.getElementById('q2').querySelectorAll('.btn-yesno').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    document.getElementById('q2sub').classList.toggle('visible', btn.dataset.val==='sim');
+  });
+});
+bindChipSingle('q2tipo','q2tipo','q2outro');
+document.getElementById('q2outro').addEventListener('input', function(e){ answers.q2outro=e.target.value; saveDraft(); });
+
+/* ---------- Q3 ---------- */
+bindYesNo('q3','q3');
+document.getElementById('q3').querySelectorAll('.btn-yesno').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    document.getElementById('q3sub').classList.toggle('visible', btn.dataset.val==='sim');
+  });
+});
+bindChipSingle('q3peca','q3peca','q3outro');
+document.getElementById('q3outro').addEventListener('input', function(e){ answers.q3outro=e.target.value; saveDraft(); });
+
+/* ---------- Q4 ---------- */
+bindYesNo('q4','q4');
+
+/* ---------- Q5 ---------- */
+bindYesNo('q5','q5');
+document.getElementById('q5').querySelectorAll('.btn-yesno').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    document.getElementById('q5sub').classList.toggle('visible', btn.dataset.val==='sim');
+  });
+});
+bindChipMulti('q5tools','q5tools','q5outro');
+document.getElementById('q5outro').addEventListener('input', function(e){ answers.q5outro=e.target.value; saveDraft(); });
+
+/* ---------- Q6 classificação ---------- */
+document.getElementById('q6').querySelectorAll('.class-btn').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    answers.q6=btn.dataset.val;
+    document.getElementById('q6').querySelectorAll('.class-btn').forEach(function(b){
+      b.classList.toggle('selected', b===btn);
+    });
+    onAnswerChange();
+  });
+});
+
+/* ---------- Q7 nível ---------- */
+document.querySelectorAll('.level-card').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    answers.q7=btn.dataset.val;
+    document.querySelectorAll('.level-card').forEach(function(b){
+      b.classList.toggle('selected', b===btn);
+    });
+    onAnswerChange();
+  });
+});
+
+/* ---------- Campos simples ---------- */
+document.getElementById('fMonitor').addEventListener('input', function(e){ answers.monitor=e.target.value; onAnswerChange(); });
+document.getElementById('fData').addEventListener('change', function(e){ answers.data=e.target.value; saveDraft(); });
+document.getElementById('fNomeOp').addEventListener('input', function(e){ answers.nomeOp=e.target.value; onAnswerChange(); });
+document.getElementById('fObs').addEventListener('input', function(e){ answers.obs=e.target.value; saveDraft(); });
+
+/* ---------- PROGRESSO ---------- */
+function onAnswerChange(){
+  saveDraft();
+  updateProgress();
+}
+function updateProgress(){
+  var required=[answers.monitor, (answers.braco||answers.equipe), answers.nomeOp, answers.q1, answers.q2, answers.q3, answers.q4, answers.q5, answers.q6, answers.q7];
+  var filled=required.filter(function(v){ return v && v.length>0; }).length;
+  var pct=Math.round((filled/required.length)*100);
+  document.getElementById('progressBar').style.width=pct+'%';
+}
+
+/* ---------- MONTAGEM DA MENSAGEM ---------- */
+var POTENCIAL_LABEL={amassado:'🔴 AMASSADO', risco:'🟠 RISCO', ambos:'🔴🟠 AMASSADO + RISCO', sem_potencial:'🟢 SEM POTENCIAL IDENTIFICADO'};
+var NIVEL_LABEL={baixo:'🟢 BAIXO', medio:'🟡 MÉDIO', alto:'🔴 ALTO'};
+
+function formatDateBR(iso){
+  if(!iso) return '__/__/____';
+  var p=iso.split('-');
+  return p[2]+'/'+p[1]+'/'+p[0];
+}
+
+function buildMessage(){
+  var l=[];
+  l.push('🔴 *SOLEIRA ZERO — Mapeamento de Risco*');
+  l.push('');
+  l.push('👤 *Identificação*');
+  l.push('Monitor: '+(answers.monitor||'—'));
+  var localParts=[];
+  if(answers.braco) localParts.push(answers.braco);
+  if(answers.equipe) localParts.push(answers.equipe);
+  l.push('Braço/Equipe: '+(localParts.length?localParts.join(' · '):'—'));
+  l.push('Data: '+formatDateBR(answers.data));
+  l.push('');
+  l.push('🔧 *Operação*: '+(answers.nomeOp||'—'));
+  l.push('');
+  l.push('1️⃣ Acessa interior do veículo? '+ynLabel(answers.q1));
+  l.push('2️⃣ Apoio na soleira? '+ynLabel(answers.q2, true));
+  if(answers.q2==='sim'){
+    var tipo=answers.q2tipo==='Outro' ? ('Outro: '+(answers.q2outro||'—')) : (answers.q2tipo||'—');
+    l.push('    ↳ Tipo de apoio: '+tipo);
+  }
+  l.push('3️⃣ Entrada/retirada de peça grande? '+ynLabel(answers.q3));
+  if(answers.q3==='sim'){
+    var peca=answers.q3peca==='Outra' ? ('Outra: '+(answers.q3outro||'—')) : (answers.q3peca||'—');
+    l.push('    ↳ Peça: '+peca);
+  }
+  l.push('4️⃣ Possibilidade de peça tocar a soleira? '+ynLabel(answers.q4));
+  l.push('5️⃣ Ferramenta/objeto próximo da soleira? '+ynLabel(answers.q5));
+  if(answers.q5==='sim'){
+    var tools=(answers.q5tools||[]).map(function(t){ return t==='Outro' ? ('Outro: '+(answers.q5outro||'—')) : t; });
+    l.push('    ↳ Itens: '+(tools.length?tools.join(', '):'—'));
+  }
+  l.push('');
+  l.push('⚠️ *Avaliação*');
+  l.push('Potencial: '+(answers.q6?POTENCIAL_LABEL[answers.q6]:'—'));
+  l.push('Nível: '+(answers.q7?NIVEL_LABEL[answers.q7]:'—'));
+  if(answers.obs){
+    l.push('');
+    l.push('📝 Observação: '+answers.obs);
+  }
+  l.push('');
+  l.push('ℹ️ "Potencial" indica uma condição identificada — não confirma que um defeito real ocorreu.');
+  l.push('🛡️ SOLEIRA ZERO — Prevenir antes de encontrar o defeito.');
+  return l.join('\n');
+}
+function ynLabel(v, hasNA){
+  if(v==='sim') return '✅ Sim';
+  if(v==='nao') return '❌ Não';
+  if(v==='na' && hasNA) return '➖ N/A';
+  return '—';
+}
+
+/* ---------- VALIDAÇÃO E ENVIO ---------- */
+function validate(){
+  var missing=[];
+  if(!answers.monitor) missing.push('Monitor');
+  if(!answers.braco && !answers.equipe) missing.push('Braço/Equipe');
+  if(!answers.nomeOp) missing.push('Nome da operação');
+  if(!answers.q1) missing.push('Pergunta 1');
+  if(!answers.q2) missing.push('Pergunta 2');
+  if(!answers.q3) missing.push('Pergunta 3');
+  if(!answers.q4) missing.push('Pergunta 4');
+  if(!answers.q5) missing.push('Pergunta 5');
+  if(!answers.q6) missing.push('Pergunta 6 (potencial)');
+  if(!answers.q7) missing.push('Pergunta 7 (nível)');
+  return missing;
+}
+
+document.getElementById('btnEnviar').addEventListener('click', function(){
+  var missing=validate();
+  if(missing.length){
+    showToast('⚠️ Faltando: '+missing[0]+(missing.length>1?' (+'+(missing.length-1)+')':''));
+    return;
+  }
+  var msg=buildMessage();
+  var url='https://wa.me/?text='+encodeURIComponent(msg);
+  window.open(url,'_blank');
+  clearDraft();
+  showToast('📲 Checklist pronto para envio');
+});
+
+document.getElementById('btnLimpar').addEventListener('click', function(){
+  if(!confirm('Limpar todas as respostas e começar um novo checklist?')) return;
+  clearDraft();
+  location.reload();
+});
+
+/* ---------- INIT ---------- */
+function applyLoadedAnswers(){
+  document.getElementById('fMonitor').value=answers.monitor||'';
+  document.getElementById('fData').value=answers.data||'';
+  document.getElementById('fNomeOp').value=answers.nomeOp||'';
+  document.getElementById('fObs').value=answers.obs||'';
+
+  renderChipSingle('bracoChips','braco');
+  renderChipSingle('equipeChips','equipe');
+  renderYesNo('q1','q1');
+  renderYesNo('q2','q2');
+  document.getElementById('q2sub').classList.toggle('visible', answers.q2==='sim');
+  renderChipSingle('q2tipo','q2tipo');
+  document.getElementById('q2outro').value=answers.q2outro||'';
+  document.getElementById('q2outro').classList.toggle('visible', answers.q2tipo==='Outro');
+
+  renderYesNo('q3','q3');
+  document.getElementById('q3sub').classList.toggle('visible', answers.q3==='sim');
+  renderChipSingle('q3peca','q3peca');
+  document.getElementById('q3outro').value=answers.q3outro||'';
+  document.getElementById('q3outro').classList.toggle('visible', answers.q3peca==='Outra');
+
+  renderYesNo('q4','q4');
+
+  renderYesNo('q5','q5');
+  document.getElementById('q5sub').classList.toggle('visible', answers.q5==='sim');
+  renderChipMulti('q5tools','q5tools');
+  document.getElementById('q5outro').value=answers.q5outro||'';
+  document.getElementById('q5outro').classList.toggle('visible', (answers.q5tools||[]).indexOf('Outro')>-1);
+
+  if(answers.q6){
+    document.getElementById('q6').querySelectorAll('.class-btn').forEach(function(b){
+      b.classList.toggle('selected', b.dataset.val===answers.q6);
+    });
+  }
+  if(answers.q7){
+    document.querySelectorAll('.level-card').forEach(function(b){
+      b.classList.toggle('selected', b.dataset.val===answers.q7);
+    });
+  }
+  updateProgress();
+}
+
+function init(){
+  loadDraft();
+  if(!answers.data){
+    var d=new Date();
+    answers.data = d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+  }
+  applyLoadedAnswers();
+}
+
+init();
+
+})();
+</script>
+</body>
+</html>
